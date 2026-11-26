@@ -11,3 +11,4 @@ Route::get('/user', function (Request $request) {
 Route::get('/transactions', [TransactionController::class, 'index']);
 Route::get('/transactions/{id}', [TransactionController::class, 'show']);
 Route::post('transactions', [TransactionController::class, 'store']);
+Route::put('/transactions/{id}', [TransactionController::class, 'update']);
