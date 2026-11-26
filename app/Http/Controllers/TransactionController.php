@@ -34,15 +34,28 @@ class TransactionController extends Controller
         return response()->json(['data' => $transaction, 'message' => 'Transaction created succefully'], Response::HTTP_CREATED);
     }
 
-    public function update(UpdateTransactionRequest $request, int $id)
+    public function update(UpdateTransactionRequest $request, int $id): JsonResponse
     {
         $transaction = Transaction::find($id);
-        if (! $transaction) {
+        if(! $transaction) {
             return response()->json(['message' => 'Transaction not found', Response::HTTP_NOT_FOUND]);
         }
 
         $transaction->update($request->validated());
 
         return response()->json(['data' => $transaction, 'message' => 'Transaction updated successfully']);
+    }
+
+    public function delete(int $id): JsonResponse
+    {
+        $transaction = Transaction::find($id);
+
+        if(! $transaction) {
+            return response()->json(['message' => 'Transaction not found', Response::HTTP_NOT_FOUND]);
+        }
+
+        $transaction->delete();
+
+        return response()->json(['message' =>  'Transaction deleted successfully']);
     }
 }
