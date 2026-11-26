@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transaction extends Model
 {
-    protected $fillable = ['amount', 'type', 'category', 'description'];
+    protected $fillable = ['amount', 'type', 'category_id', 'description'];
 
     protected $dateFormat = "Y-m-d\TH:i:s";
 

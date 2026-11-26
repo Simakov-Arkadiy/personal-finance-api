@@ -38,7 +38,7 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         if (! $category) {
-            return response()->json(['message' => 'Category not found', Response::HTTP_NOT_FOUND]);
+            return response()->json(['message' => 'Category not found'], Response::HTTP_NOT_FOUND);
         }
 
         $category->update($request->validated());
@@ -51,7 +51,7 @@ class CategoryController extends Controller
         $category = Category::find($id);
 
         if (! $category) {
-            return response()->json(['message' => 'Category not found', Response::HTTP_NOT_FOUND]);
+            return response()->json(['message' => 'Category not found'], Response::HTTP_NOT_FOUND);
         }
         if ($category->transactions()->exists()) {
             return response()->json([

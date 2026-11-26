@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTransactionRequest extends FormRequest
 {
@@ -25,7 +26,12 @@ class UpdateTransactionRequest extends FormRequest
         return [
             'amount' => ['required', 'numeric', 'gt:0'],
             'type' => ['required', 'in:income,expense'],
-            'category' => ['required', 'string', 'max:100'],
+            'category_id' => [
+                'required',
+                'integer',
+                Rule::exists('categories', 'id')
+                    ->where('type', $this->input('type')),
+            ],
             'description' => ['nullable', 'string'],
         ];
     }
