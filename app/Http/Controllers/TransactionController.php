@@ -37,7 +37,7 @@ class TransactionController extends Controller
     public function update(UpdateTransactionRequest $request, int $id): JsonResponse
     {
         $transaction = Transaction::find($id);
-        if(! $transaction) {
+        if (! $transaction) {
             return response()->json(['message' => 'Transaction not found', Response::HTTP_NOT_FOUND]);
         }
 
@@ -50,12 +50,12 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::find($id);
 
-        if(! $transaction) {
+        if (! $transaction) {
             return response()->json(['message' => 'Transaction not found', Response::HTTP_NOT_FOUND]);
         }
 
         $transaction->delete();
 
-        return response()->json(['message' =>  'Transaction deleted successfully']);
+        return response()->json(['message' => 'Transaction deleted successfully']);
     }
 }
