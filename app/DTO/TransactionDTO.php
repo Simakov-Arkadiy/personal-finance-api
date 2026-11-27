@@ -2,12 +2,14 @@
 
 namespace App\Dto;
 
+use App\Currency;
 use App\TransactionType;
+use App\ValuesObject\Money;
 
-readonly class TransactionDTO
+final readonly class TransactionDTO
 {
-    public function __construct(
-        public string $amount,
+    private function __construct(
+        public Money $amount,
         public TransactionType $type,
         public int $categoryId,
         public ?string $description = null
@@ -16,7 +18,7 @@ readonly class TransactionDTO
     public static function from(array $data): self
     {
         return new self(
-            amount: $data['amount'],
+            amount: Money::fromDecimalString($data['amount'], Currency::RUB),
             type: TransactionType::from($data['type']),
             categoryId: $data['category_id'],
             description: $data['description'] ?? null,

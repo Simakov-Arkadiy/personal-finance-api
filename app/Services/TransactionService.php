@@ -14,7 +14,7 @@ class TransactionService implements TransactionServiceInterface
     public function create(TransactionDTO $data): Transaction
     {
         return Transaction::create([
-            'amount' => $data->amount,
+            'amount' => $data->amount->toDecimalString(),
             'type' => $data->type,
             'category_id' => $data->categoryId,
             'description' => $data->description,
@@ -39,7 +39,7 @@ class TransactionService implements TransactionServiceInterface
         $transaction = Transaction::with('category')->findOrFail($id);
 
         $transaction->update([
-            'amount' => $data->amount,
+            'amount' => $data->amount->toDecimalString(),
             'type' => $data->type,
             'category_id' => $data->categoryId,
             'description' => $data->description,

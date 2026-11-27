@@ -4,9 +4,9 @@ namespace App\Dto;
 
 use App\TransactionType;
 
-readonly class CategoryDTO
+final readonly class CategoryDTO
 {
-    public function __construct(
+    private function __construct(
         public string $name,
         public TransactionType $type,
     ) {}
