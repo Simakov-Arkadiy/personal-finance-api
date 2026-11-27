@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\CategoryServiceInterface;
+use App\Dto\CategoryDTO;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Override;
@@ -10,9 +11,12 @@ use Override;
 class CategoryService implements CategoryServiceInterface
 {
     #[Override]
-    public function create(array $data): Category
+    public function create(CategoryDTO $data): Category
     {
-        return Category::create($data);
+        return Category::create([
+            'name' => $data->name,
+            'type' => $data->type,
+        ]);
     }
 
     #[Override]
@@ -28,11 +32,14 @@ class CategoryService implements CategoryServiceInterface
     }
 
     #[Override]
-    public function update(int $id, array $data): Category
+    public function update(int $id, CategoryDTO $data): Category
     {
         $category = Category::findOrFail($id);
 
-        $category->update($data);
+        $category->update([
+            'name' => $data->name,
+            'type' => $data->type,
+        ]);
 
         return $category;
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\CategoryServiceInterface;
+use App\Dto\CategoryDTO;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Http\JsonResponse;
@@ -30,14 +31,14 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request): JsonResponse
     {
-        $category = $this->categoryService->create($request->validated());
+        $category = $this->categoryService->create(CategoryDTO::from($request->validated()));
 
         return response()->json(['data' => $category, 'message' => 'Category created succefully'], Response::HTTP_CREATED);
     }
 
     public function update(UpdateCategoryRequest $request, int $id): JsonResponse
     {
-        $category = $this->categoryService->update($id, $request->validated());
+        $category = $this->categoryService->update($id, CategoryDTO::from($request->validated()));
 
         return response()->json(['data' => $category, 'message' => 'Category updated successfully']);
     }
