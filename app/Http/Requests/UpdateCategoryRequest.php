@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\TransactionType;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCategoryRequest extends FormRequest
 {
@@ -23,7 +25,7 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => ['required', 'in:income,expense'],
+            'type' => ['required', Rule::enum(TransactionType::class)],
             'name' => ['required', 'string', 'max:100', 'unique:categories,name,NULL,id,type,expense'.$this->input('type')],
         ];
     }

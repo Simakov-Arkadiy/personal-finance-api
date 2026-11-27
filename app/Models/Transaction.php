@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\TransactionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -13,7 +14,8 @@ class Transaction extends Model
 
     protected function casts(): array
     {
-        return ['amount' => 'decimal:2'];
+        return ['amount' => 'decimal:2',
+            'type' => TransactionType::class];
     }
 
     public function category(): BelongsTo

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\TransactionType;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -25,7 +26,7 @@ class UpdateTransactionRequest extends FormRequest
     {
         return [
             'amount' => ['required', 'numeric', 'gt:0'],
-            'type' => ['required', 'in:income,expense'],
+            'type' => ['required', Rule::enum(TransactionType::class)],
             'category_id' => [
                 'required',
                 'integer',

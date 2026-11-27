@@ -30,11 +30,11 @@ class CategoryService implements CategoryServiceInterface
     #[Override]
     public function update(int $id, array $data): Category
     {
-        $transaction = Category::findOrFail($id);
+        $category = Category::findOrFail($id);
 
-        $transaction->update($data);
+        $category->update($data);
 
-        return $transaction;
+        return $category;
     }
 
     #[Override]
@@ -45,8 +45,7 @@ class CategoryService implements CategoryServiceInterface
         if ($category->transactions()->exists()) {
             return false;
         }
-        $category->delete();
 
-        return $category;
+        return $category->delete();
     }
 }

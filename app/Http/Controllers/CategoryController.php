@@ -16,23 +16,23 @@ class CategoryController extends Controller
 
     public function index(): JsonResponse
     {
-        $categoryes = $this->categoryService->getAll();
+        $categories = $this->categoryService->getAll();
 
-        return response()->json(['data' => $categoryes, 'message' => 'Your categoryes!']);
+        return response()->json(['data' => $categories, 'message' => 'Your categoryes!']);
     }
 
     public function show(int $id): JsonResponse
     {
-        $categoryes = $this->categoryService->get($id);
+        $category = $this->categoryService->get($id);
 
-        return response()->json(['data' => $categoryes]);
+        return response()->json(['data' => $category]);
     }
 
     public function store(StoreCategoryRequest $request): JsonResponse
     {
         $category = $this->categoryService->create($request->validated());
 
-        return response()->json(['data' => $category, 'message' => 'Categoryn created succefully'], Response::HTTP_CREATED);
+        return response()->json(['data' => $category, 'message' => 'Category created succefully'], Response::HTTP_CREATED);
     }
 
     public function update(UpdateCategoryRequest $request, int $id): JsonResponse
@@ -42,7 +42,7 @@ class CategoryController extends Controller
         return response()->json(['data' => $category, 'message' => 'Category updated successfully']);
     }
 
-    public function delete(int $id): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $category = $this->categoryService->delete($id);
 

@@ -42,7 +42,7 @@ class TransactionController extends Controller
         return response()->json(['data' => $transaction, 'message' => 'Transaction updated successfully']);
     }
 
-    public function delete(int $id): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $this->transactionService->delete($id);
 
