@@ -22,15 +22,15 @@ class TransactionService implements TransactionServiceInterface
     }
 
     #[Override]
-    public function get(int $id): ?Transaction
+    public function get(int $id): Transaction
     {
-        return Transaction::with('category')->find($id);
+        return Transaction::with('category')->findOrFail($id);
     }
 
     #[Override]
     public function update(int $id, array $data): Transaction
     {
-        $transaction = Transaction::find($id);
+        $transaction = Transaction::with('category')->findOrFail($id);
 
         $transaction->update($data);
 
@@ -38,13 +38,9 @@ class TransactionService implements TransactionServiceInterface
     }
 
     #[Override]
-    public function delete(int $id): ?Transaction
+    public function delete(int $id): Transaction
     {
-        $transaction = Transaction::find($id);
-
-        if (! $transaction) {
-            return null;
-        }
+        $transaction = Transaction::findOrFail($id);
 
         $transaction->delete();
 

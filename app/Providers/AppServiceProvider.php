@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Contracts\CategoryServiceInterface;
 use App\Contracts\TransactionServiceInterface;
+use App\Services\CategoryService;
 use App\Services\TransactionService;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
             TransactionServiceInterface::class,
             TransactionService::class
         );
+
+        $this->app->bind(CategoryServiceInterface::class, CategoryService::class);
     }
 
     /**

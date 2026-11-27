@@ -24,9 +24,6 @@ class TransactionController extends Controller
     public function show(int $id): JsonResponse
     {
         $transaction = $this->transactionService->get($id);
-        if (! $transaction) {
-            return response()->json(['message' => 'Transaction not found'], Response::HTTP_NOT_FOUND);
-        }
 
         return response()->json(['data' => $transaction]);
     }
@@ -41,20 +38,13 @@ class TransactionController extends Controller
     public function update(UpdateTransactionRequest $request, int $id): JsonResponse
     {
         $transaction = $this->transactionService->update($id, $request->validated());
-        if (! $transaction) {
-            return response()->json(['message' => 'Transaction not found'], Response::HTTP_NOT_FOUND);
-        }
 
         return response()->json(['data' => $transaction, 'message' => 'Transaction updated successfully']);
     }
 
     public function delete(int $id): JsonResponse
     {
-        $transaction = $this->transactionService->delete($id);
-
-        if (! $transaction) {
-            return response()->json(['message' => 'Transaction not found'], Response::HTTP_NOT_FOUND);
-        }
+        $this->transactionService->delete($id);
 
         return response()->json(['message' => 'Transaction deleted successfully']);
     }

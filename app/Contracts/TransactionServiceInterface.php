@@ -11,9 +11,9 @@ interface TransactionServiceInterface
 
     public function getAll(): Collection;
 
-    public function get(int $id): ?Transaction;
+    public function get(int $id): Transaction;
 
     public function update(int $id, array $data): Transaction;
 
-    public function delete(int $id): ?Transaction;
+    public function delete(int $id): Transaction;
 }
