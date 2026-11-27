@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\TransactionServiceInterface;
+use App\Dto\TransactionDTO;
 use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Collection;
 use Override;
@@ -10,9 +11,14 @@ use Override;
 class TransactionService implements TransactionServiceInterface
 {
     #[Override]
-    public function create(array $data): Transaction
+    public function create(TransactionDTO $data): Transaction
     {
-        return Transaction::create($data);
+        return Transaction::create([
+            'amount' => $data->amount,
+            'type' => $data->type,
+            'category_id' => $data->categoryId,
+            'description' => $data->description,
+        ]);
     }
 
     #[Override]
@@ -28,11 +34,16 @@ class TransactionService implements TransactionServiceInterface
     }
 
     #[Override]
-    public function update(int $id, array $data): Transaction
+    public function update(int $id, TransactionDTO $data): Transaction
     {
         $transaction = Transaction::with('category')->findOrFail($id);
 
-        $transaction->update($data);
+        $transaction->update([
+            'amount' => $data->amount,
+            'type' => $data->type,
+            'category_id' => $data->categoryId,
+            'description' => $data->description,
+        ]);
 
         return $transaction;
     }

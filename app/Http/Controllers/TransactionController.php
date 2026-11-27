@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\TransactionServiceInterface;
+use App\Dto\TransactionDTO;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
 use Illuminate\Http\JsonResponse;
@@ -30,14 +31,14 @@ class TransactionController extends Controller
 
     public function store(StoreTransactionRequest $request): JsonResponse
     {
-        $transaction = $this->transactionService->create($request->validated());
+        $transaction = $this->transactionService->create(TransactionDTO::from($request->validated()));
 
         return response()->json(['data' => $transaction, 'message' => 'Transaction created successfully'], Response::HTTP_CREATED);
     }
 
     public function update(UpdateTransactionRequest $request, int $id): JsonResponse
     {
-        $transaction = $this->transactionService->update($id, $request->validated());
+        $transaction = $this->transactionService->update($id, TransactionDTO::from($request->validated()));
 
         return response()->json(['data' => $transaction, 'message' => 'Transaction updated successfully']);
     }
